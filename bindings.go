@@ -16,6 +16,7 @@ var GetType func(str string) string
 var GetTypeOfVar func(str string) string
 var GetTypeEx func(str string) string
 var IfVariableReplaceIt func(str string) interface{}
+var GetVariableValue func(v string) interface{}
 var SetVariable func(name string, value interface{}) bool
 var SetReturned func(varType string, value interface{}, segmentName string)
 var StringToText func(str string) string
@@ -101,6 +102,12 @@ func InitDinolang(dlPath string) error {
 		return err
 	}
 	TextToString = textToString.(func(str string) string)
+
+	getVariableValue, err := plugin.Lookup("GetVariableValue")
+	if err != nil {
+		return err
+	}
+	GetVariableValue = getVariableValue.(func(v string) interface{})
 
 	setVariable, err := plugin.Lookup("SetVariable")
 	if err != nil {
