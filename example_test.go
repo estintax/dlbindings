@@ -21,5 +21,6 @@ func ExampleInitDinolang() {
 		return true
 	}, nil)
 
-	dlbindings.PiniginShell()
+	dlbindings.RunCode("use, \"myclass\"\nmyclass:hello\n")
+	log.Println(dlbindings.GetVariableValue("returned").(string))
 }
