@@ -11,4 +11,21 @@ func TestInitDinolang(t *testing.T) {
 	if err != nil {
 		t.Fatal(err.Error())
 	}
+	ret := dlbindings.AddClass("myclass", false, func(args []string, segmentName string) bool {
+		switch args[0] {
+		case "hello":
+			dlbindings.SetReturned("string", "Hello, World!", segmentName)
+		}
+		return true
+	}, nil)
+	if !ret {
+		t.Fatal("Add class failed")
+	}
+
+	dlbindings.RunCode("use, \"myclass\"\nmyclass:hello\n")
+	if dlbindings.GetVariableValue("returned").(string) != "Hello, World!" {
+		t.Fatal("expected \"Hello, World!\"")
+	}
+
+	dlbindings.CleanUp(true)
 }
