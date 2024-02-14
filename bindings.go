@@ -12,6 +12,7 @@ var dinolangReady bool = false
 var AddClass func(name string, usedByDefault bool, caller func(args []string, segmentName string) bool, loader func() bool) bool
 var RemoveClass func(name string) bool
 var CheckOnVariable func(str string) bool
+var CleanUp func(cleanClasses bool) bool
 var GetType func(str string) string
 var GetTypeOfVar func(str string) string
 var GetTypeEx func(str string) string
@@ -66,6 +67,12 @@ func InitDinolang(dlPath string) error {
 		return err
 	}
 	CheckOnVariable = checkOnVariable.(func(str string) bool)
+
+	cleanUp, err := plugin.Lookup("CleanUp")
+	if err != nil {
+		return err
+	}
+	CleanUp = cleanUp.(func(checkClasses bool) bool)
 
 	getType, err := plugin.Lookup("GetType")
 	if err != nil {
