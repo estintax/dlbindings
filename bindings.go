@@ -11,6 +11,7 @@ var dinolangReady bool = false
 
 var AddClass func(name string, usedByDefault bool, caller func(args []string, segmentName string) bool, loader func() bool) bool
 var RemoveClass func(name string) bool
+var SetClassUsage func(className string, inUse bool, isGlobal bool) bool
 var CheckOnVariable func(str string) bool
 var CleanUp func(cleanClasses bool) bool
 var GetType func(str string) string
@@ -145,6 +146,12 @@ func InitDinolang(dlPath string) error {
 		return err
 	}
 	Execute = execute.(func(code string, segmentName string, line int, isInIfElse bool) bool)
+
+	setClassUsage, err := plugin.Lookup("SetClassUsage")
+	if err != nil {
+		return err
+	}
+	SetClassUsage = setClassUsage.(func(className string, inUse bool, isGlobal bool) bool)
 
 	return nil
 }

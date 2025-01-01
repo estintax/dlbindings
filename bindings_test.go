@@ -27,5 +27,9 @@ func TestInitDinolang(t *testing.T) {
 		t.Fatal("expected \"Hello, World!\"")
 	}
 
+	if !dlbindings.SetClassUsage("myclass", false, false) {
+		t.Fatal("exptected true in SetClassUsage")
+	}
+
 	dlbindings.CleanUp(true)
 }
