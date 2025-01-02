@@ -17,6 +17,8 @@ func ExampleInitDinolang() {
 		switch args[0] {
 		case "hello":
 			dlbindings.SetReturned("string", "Hello, World!", segmentName)
+		default:
+			return false
 		}
 		return true
 	}, nil)
