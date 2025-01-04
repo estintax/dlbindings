@@ -28,8 +28,10 @@ func TestInitDinolang(t *testing.T) {
 	}
 
 	if !dlbindings.SetClassUsage("myclass", false, false) {
-		t.Fatal("exptected true in SetClassUsage")
+		t.Fatal("expected true in SetClassUsage")
 	}
+
+	dlbindings.PrintString("calling PrintString", true)
 
 	dlbindings.CleanUp(true)
 }

@@ -23,6 +23,7 @@ var SetVariable func(name string, value interface{}) bool
 var SetReturned func(varType string, value interface{}, segmentName string)
 var StringToText func(str string) string
 var TextToString func(str string) string
+var PrintString func(str string, newline bool)
 var PrintError func(str string)
 var RunCode func(code string) bool
 var ParseFile func(path string) bool
@@ -134,6 +135,11 @@ func InitDinolang(dlPath string) error {
 		return err
 	}
 
+	printString, err := plugin.Lookup("PrintString")
+	if err != nil {
+		return err
+	}
+
 	PiniginShell = piniginShell.(func())
 	SetReturned = setReturned.(func(varType string, value interface{}, segmentName string))
 	AddClass = addClass.(func(name string, usedByDefault bool, caller func(args []string, segmentName string) bool, loader func() bool) bool)
@@ -153,6 +159,7 @@ func InitDinolang(dlPath string) error {
 	ParseFile = parseFile.(func(path string) bool)
 	Execute = execute.(func(code string, segmentName string, line int, isInIfElse bool) bool)
 	SetClassUsage = setClassUsage.(func(className string, inUse bool, isGlobal bool) bool)
+	PrintString = printString.(func(str string, newline bool))
 
 	return nil
 }
