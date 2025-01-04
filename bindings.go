@@ -43,114 +43,115 @@ func InitDinolang(dlPath string) error {
 	if err != nil {
 		return err
 	}
-	PiniginShell = piniginShell.(func())
 
 	setReturned, err := plugin.Lookup("SetReturned")
 	if err != nil {
 		return err
 	}
-	SetReturned = setReturned.(func(varType string, value interface{}, segmentName string))
 
 	addClass, err := plugin.Lookup("AddClass")
 	if err != nil {
 		return err
 	}
-	AddClass = addClass.(func(name string, usedByDefault bool, caller func(args []string, segmentName string) bool, loader func() bool) bool)
 
 	removeClass, err := plugin.Lookup("RemoveClass")
 	if err != nil {
 		return err
 	}
-	RemoveClass = removeClass.(func(name string) bool)
 
 	checkOnVariable, err := plugin.Lookup("CheckOnVariable")
 	if err != nil {
 		return err
 	}
-	CheckOnVariable = checkOnVariable.(func(str string) bool)
 
 	cleanUp, err := plugin.Lookup("CleanUp")
 	if err != nil {
 		return err
 	}
-	CleanUp = cleanUp.(func(checkClasses bool) bool)
 
 	getType, err := plugin.Lookup("GetType")
 	if err != nil {
 		return err
 	}
-	GetType = getType.(func(str string) string)
 
 	getTypeOfVar, err := plugin.Lookup("GetTypeOfVar")
 	if err != nil {
 		return err
 	}
-	GetTypeOfVar = getTypeOfVar.(func(str string) string)
 
 	getTypeEx, err := plugin.Lookup("GetTypeEx")
 	if err != nil {
 		return err
 	}
-	GetTypeEx = getTypeEx.(func(str string) string)
 
 	ifVariableReplaceIt, err := plugin.Lookup("IfVariableReplaceIt")
 	if err != nil {
 		return err
 	}
-	IfVariableReplaceIt = ifVariableReplaceIt.(func(str string) interface{})
 
 	stringToText, err := plugin.Lookup("StringToText")
 	if err != nil {
 		return err
 	}
-	StringToText = stringToText.(func(str string) string)
 
 	textToString, err := plugin.Lookup("TextToString")
 	if err != nil {
 		return err
 	}
-	TextToString = textToString.(func(str string) string)
 
 	getVariableValue, err := plugin.Lookup("GetVariableValue")
 	if err != nil {
 		return err
 	}
-	GetVariableValue = getVariableValue.(func(v string) interface{})
 
 	setVariable, err := plugin.Lookup("SetVariable")
 	if err != nil {
 		return err
 	}
-	SetVariable = setVariable.(func(name string, value interface{}) bool)
 
 	printError, err := plugin.Lookup("PrintError")
 	if err != nil {
 		return err
 	}
-	PrintError = printError.(func(str string))
 
 	runCode, err := plugin.Lookup("RunCode")
 	if err != nil {
 		return err
 	}
-	RunCode = runCode.(func(code string) bool)
 
 	parseFile, err := plugin.Lookup("ParseFile")
 	if err != nil {
 		return err
 	}
-	ParseFile = parseFile.(func(path string) bool)
 
 	execute, err := plugin.Lookup("Execute")
 	if err != nil {
 		return err
 	}
-	Execute = execute.(func(code string, segmentName string, line int, isInIfElse bool) bool)
 
 	setClassUsage, err := plugin.Lookup("SetClassUsage")
 	if err != nil {
 		return err
 	}
+
+	PiniginShell = piniginShell.(func())
+	SetReturned = setReturned.(func(varType string, value interface{}, segmentName string))
+	AddClass = addClass.(func(name string, usedByDefault bool, caller func(args []string, segmentName string) bool, loader func() bool) bool)
+	RemoveClass = removeClass.(func(name string) bool)
+	CheckOnVariable = checkOnVariable.(func(str string) bool)
+	CleanUp = cleanUp.(func(checkClasses bool) bool)
+	GetType = getType.(func(str string) string)
+	GetTypeOfVar = getTypeOfVar.(func(str string) string)
+	GetTypeEx = getTypeEx.(func(str string) string)
+	IfVariableReplaceIt = ifVariableReplaceIt.(func(str string) interface{})
+	StringToText = stringToText.(func(str string) string)
+	TextToString = textToString.(func(str string) string)
+	GetVariableValue = getVariableValue.(func(v string) interface{})
+	SetVariable = setVariable.(func(name string, value interface{}) bool)
+	PrintError = printError.(func(str string))
+	RunCode = runCode.(func(code string) bool)
+	ParseFile = parseFile.(func(path string) bool)
+	Execute = execute.(func(code string, segmentName string, line int, isInIfElse bool) bool)
 	SetClassUsage = setClassUsage.(func(className string, inUse bool, isGlobal bool) bool)
 
 	return nil
